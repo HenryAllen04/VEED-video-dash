@@ -1,6 +1,6 @@
 // Purpose: API service layer for communicating with the VEED Video Library Dashboard backend
 import axios from 'axios';
-import { Video, CreateVideoRequest, VideosResponse, ApiResponse, VideoQuery, VideoStats } from '../types/video.types';
+import { Video, CreateVideoRequest, VideosResponse, ApiResponse, VideoQuery, VideoStats, TagCount } from '../types/video.types';
 
 // API Configuration
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
@@ -131,6 +131,22 @@ export class VideoService {
       return response.data.data;
     } catch (error) {
       console.error('Error fetching video stats:', error);
+      throw error;
+    }
+  }
+
+  // Get all available tags with counts
+  static async getTags(): Promise<TagCount[]> {
+    try {
+      const response = await api.get<ApiResponse<TagCount[]>>('/tags');
+      
+      if (!response.data.success || !response.data.data) {
+        throw new Error(response.data.error || 'Failed to fetch tags');
+      }
+      
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching tags:', error);
       throw error;
     }
   }

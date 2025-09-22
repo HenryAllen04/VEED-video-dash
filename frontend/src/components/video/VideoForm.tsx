@@ -7,13 +7,23 @@ interface VideoFormProps {
   onSubmit: (videoData: CreateVideoRequest) => Promise<void>;
   loading?: boolean;
   error?: string;
+  initialData?: CreateVideoRequest;
+  mode?: 'create' | 'edit';
 }
 
-const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, loading = false, error }) => {
-  const [formData, setFormData] = useState<CreateVideoRequest>({
-    title: '',
-    tags: []
-  });
+const VideoForm: React.FC<VideoFormProps> = ({ 
+  onSubmit, 
+  loading = false, 
+  error,
+  initialData,
+  mode = 'create'
+}) => {
+  const [formData, setFormData] = useState<CreateVideoRequest>(
+    initialData || {
+      title: '',
+      tags: []
+    }
+  );
   const [tagInput, setTagInput] = useState('');
   const [validationErrors, setValidationErrors] = useState<{ [key: string]: string }>({});
 
@@ -39,10 +49,12 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, loading = false, error 
 
     try {
       await onSubmit(formData);
-      // Reset form on success
-      setFormData({ title: '', tags: [] });
-      setTagInput('');
-      setValidationErrors({});
+      // Reset form on success (only for create mode)
+      if (mode === 'create') {
+        setFormData({ title: '', tags: [] });
+        setTagInput('');
+        setValidationErrors({});
+      }
     } catch (err) {
       // Error handling is done by parent component
       console.error('Form submission error:', err);
@@ -170,10 +182,10 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, loading = false, error 
             {loading ? (
               <>
                 <LoadingSpinner size="sm" className="mr-2" />
-                Creating Video...
+                {mode === 'edit' ? 'Updating Video...' : 'Creating Video...'}
               </>
             ) : (
-              'Create Video'
+              mode === 'edit' ? 'Update Video' : 'Create Video'
             )}
           </button>
         </div>
@@ -182,7 +194,10 @@ const VideoForm: React.FC<VideoFormProps> = ({ onSubmit, loading = false, error 
       {/* Helper Text */}
       <div className="mt-6 text-sm text-gray-500">
         <p>
-          <strong>Note:</strong> Thumbnail, duration, and view count will be set automatically.
+          <strong>Note:</strong> {mode === 'edit' 
+            ? 'Only title and tags can be modified. Other metadata is preserved.'
+            : 'Thumbnail, duration, and view count will be set automatically.'
+          }
         </p>
       </div>
     </div>

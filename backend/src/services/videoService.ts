@@ -48,10 +48,31 @@ export class VideoService {
     if (query.tags) {
       const filterTags = query.tags.split(',').map(tag => tag.trim().toLowerCase());
       filteredVideos = filteredVideos.filter(video =>
-        video.tags.some(tag => 
-          filterTags.some(filterTag => tag.toLowerCase().includes(filterTag))
+        filterTags.every(filterTag =>
+          video.tags.some(videoTag => videoTag.toLowerCase().includes(filterTag))
         )
       );
+    }
+
+    // Apply date range filter
+    if (query.dateFrom || query.dateTo) {
+      filteredVideos = filteredVideos.filter(video => {
+        const videoDate = new Date(video.created_at);
+        
+        if (query.dateFrom) {
+          const fromDate = new Date(query.dateFrom);
+          if (videoDate < fromDate) return false;
+        }
+        
+        if (query.dateTo) {
+          const toDate = new Date(query.dateTo);
+          // Add 1 day to include the entire "to" date
+          toDate.setDate(toDate.getDate() + 1);
+          if (videoDate >= toDate) return false;
+        }
+        
+        return true;
+      });
     }
 
     // Apply sorting

@@ -2,12 +2,14 @@
 import { Router } from 'express';
 import videoRoutes from './videos';
 import healthRoutes from './health';
+import tagRoutes from './tags';
 
 const router = Router();
 
 // Mount route modules
 router.use('/videos', videoRoutes);
 router.use('/health', healthRoutes);
+router.use('/tags', tagRoutes);
 
 // API info endpoint
 router.get('/', (req, res) => {

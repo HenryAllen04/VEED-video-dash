@@ -34,6 +34,8 @@ export interface VideoQuery {
   order?: 'asc' | 'desc';
   search?: string;
   tags?: string;
+  dateFrom?: string;
+  dateTo?: string;
   limit?: number;
   offset?: number;
 }
@@ -42,4 +44,9 @@ export interface VideoStats {
   total: number;
   totalViews: number;
   averageDuration: number;
+}
+
+export interface TagCount {
+  tag: string;
+  count: number;
 }

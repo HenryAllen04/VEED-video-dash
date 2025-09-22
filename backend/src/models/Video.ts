@@ -29,6 +29,8 @@ export const VideoQuerySchema = z.object({
   order: z.enum(['asc', 'desc']).optional().default('desc'),
   search: z.string().optional(),
   tags: z.string().optional(), // comma-separated tags
+  dateFrom: z.string().optional(), // ISO date string
+  dateTo: z.string().optional(), // ISO date string
   limit: z.coerce.number().min(1).max(100).optional().default(20),
   offset: z.coerce.number().min(0).optional().default(0)
 });
@@ -48,4 +50,9 @@ export interface ApiResponse<T> {
   data?: T;
   error?: string;
   message?: string;
+}
+
+export interface TagCount {
+  tag: string;
+  count: number;
 }

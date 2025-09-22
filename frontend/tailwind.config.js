@@ -7,11 +7,17 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          50: '#f0f9ff',
-          100: '#dbeafe',
-          500: '#3b82f6',
-          600: '#2563eb',
-          700: '#1d4ed8',
+          50: '#f0fdf4',
+          100: '#dcfce7',
+          500: '#22c55e',
+          600: '#16a34a',
+          700: '#15803d',
+        },
+        veed: {
+          green: '#7ED321',
+          'green-light': '#9AE852',
+          'green-dark': '#6BBF1A',
+          dark: '#2B2B2B',
         }
       },
       animation: {
@@ -32,5 +38,12 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/forms'),
+    function({ addUtilities }) {
+      addUtilities({
+        '.transform-3d': {
+          'transform-style': 'preserve-3d',
+        },
+      })
+    },
   ],
 }

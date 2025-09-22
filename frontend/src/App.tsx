@@ -1,6 +1,7 @@
 // Purpose: Main application component with routing for the VEED Video Library Dashboard
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import LandingPage from './components/LandingPage';
 import VideoListPage from './pages/VideoListPage';
 import VideoCreatePage from './pages/VideoCreatePage';
 
@@ -9,7 +10,8 @@ function App() {
     <Router>
       <div className="App">
         <Routes>
-          <Route path="/" element={<VideoListPage />} />
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/library" element={<VideoListPage />} />
           <Route path="/create" element={<VideoCreatePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

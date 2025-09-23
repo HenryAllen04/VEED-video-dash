@@ -1,8 +1,8 @@
 // Purpose: Tag-related API routes for the VEED Video Library Dashboard
 import { Router } from 'express';
-import { VideoService } from '../services/videoService.js';
-import { asyncHandler } from '../middleware/errorHandler.js';
-import { ApiResponse } from '../models/Video.js';
+import { VideoService } from '../services/videoService';
+import { asyncHandler } from '../middleware/errorHandler';
+import { ApiResponse } from '../models/Video';
 
 const router = Router();
 

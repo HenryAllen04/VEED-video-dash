@@ -23,7 +23,7 @@ This application was built as a technical challenge demonstrating clean architec
 - **CORS** - Cross-origin resource sharing middleware
 
 ### Development Tools
-- **Vite** - Fast build tool and dev server (frontend)
+- **Create React App** - React development environment with webpack and babel
 - **ts-node** - TypeScript execution for Node.js
 - **Nodemon** - Auto-restart development server
 - **ESLint & Prettier** - Code linting and formatting
@@ -272,6 +272,7 @@ Response:
 - **Database Migration**: Move from JSON to PostgreSQL/MongoDB with Prisma ORM
 - **Image Upload**: Implement real thumbnail upload with cloud storage
 - **Pagination UI**: Add proper pagination controls to the video grid
+- **Filter Component UI/UX Improvements**: Enhanced tag filtering with visual feedback, keyboard shortcuts, better mobile experience, and improved accessibility
 - **Advanced Filtering**: Date range filters, multiple tag selection
 - **Error Boundaries**: More granular error handling with recovery options
 
@@ -292,9 +293,72 @@ Response:
 ## 🧪 Testing Strategy
 
 ### Current Testing
-- **API Endpoint Testing**: Basic validation and error handling tests
-- **Component Testing**: Key React components with React Testing Library
+- **API Endpoint Testing**: 9 Jest tests for video controller endpoints, validation, and error cases
+- **Service Layer Testing**: 7 unit tests for video service business logic and data operations
+- **Component Testing**: 12 React Testing Library tests for VideoCard and VideoForm components  
+- **Utility Function Testing**: 6 tests for helper functions like class name merging
 - **Type Safety**: Full TypeScript coverage prevents runtime type errors
+- **Total Coverage**: 34 tests across frontend and backend demonstrating testing best practices
+
+### Running Tests
+
+#### Quick Test Commands
+```bash
+# Run all backend tests (16 tests)
+cd backend && npm test
+
+# Run all frontend tests (18 tests)  
+cd frontend && npm test
+
+# Run frontend tests with coverage report
+cd frontend && npm run test:coverage
+
+# Run frontend tests in watch mode (for development)
+cd frontend && npm run test:watch
+```
+
+#### Test Output Example
+```bash
+# Backend Tests
+✅ 16 tests passing (API endpoints + service layer)
+✅ Covers: CRUD operations, validation, error handling, business logic
+
+# Frontend Tests  
+✅ 18 tests passing (components + utilities)
+✅ Covers: Component rendering, user interactions, form validation, utilities
+```
+
+### Test Coverage Details
+
+#### Backend Tests (16 total)
+- **VideoController Tests** (9 tests):
+  - GET `/api/videos` with pagination, filtering, sorting
+  - POST `/api/videos` with validation scenarios
+  - GET `/api/videos/:id` for single video retrieval
+  - GET `/api/tags` for tag aggregation
+  - Error handling and edge cases
+
+- **VideoService Tests** (7 tests):
+  - Business logic for video CRUD operations
+  - Data filtering, searching, and transformation
+  - Auto-generated field handling (IDs, timestamps)
+
+#### Frontend Tests (18 total)
+- **VideoCard Tests** (5 tests):
+  - Component rendering with video data
+  - Click event handling and user interactions
+  - Data formatting (views, duration, dates)
+  - Edge cases (no tags, large numbers)
+
+- **VideoForm Tests** (7 tests):
+  - Form field rendering and labeling
+  - User input handling and form submission
+  - Loading states and error display
+  - Initial data population for editing mode
+
+- **Utility Tests** (6 tests):
+  - Class name merging utility (Tailwind + clsx)
+  - Conditional class handling and conflict resolution
 
 ### Future Testing Improvements
 - **E2E Testing**: Playwright/Cypress for critical user journeys
@@ -311,6 +375,7 @@ Response:
 npm run dev          # Start development server with hot reload
 npm run build        # Build TypeScript to JavaScript
 npm start           # Start production server
+npm test            # Run Jest tests (16 tests covering API endpoints & services)
 npm run typecheck   # Type check without building
 npm run clean       # Remove dist directory
 ```
@@ -319,7 +384,9 @@ npm run clean       # Remove dist directory
 ```bash
 npm start           # Start development server
 npm run build       # Build for production
-npm test            # Run test suite
+npm test            # Run test suite (18 tests covering components & utilities)
+npm run test:watch  # Run tests in watch mode
+npm run test:coverage # Run tests with coverage report
 npm run eject       # Eject from Create React App (irreversible)
 ```
 
@@ -366,6 +433,8 @@ This project was created for the VEED technical challenge. All rights reserved.
 
 ---
 
-**Built with ❤️ for VEED by [Your Name]**
+**Built with ❤️ for VEED by Henry Allen**
+
+Hire me ;)
 
 *Total development time: ~4 hours*
